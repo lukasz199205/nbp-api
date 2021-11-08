@@ -16,7 +16,7 @@
         <tr>
             <th>Nazwa waluty</th>
             <th>Kod</th>
-            <th>Kurs</th>
+            <th>Kurs [PLN]</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
             <tr>
                 <td>{{ row.name }}</td>
                 <td>{{ row.currencyCode }}</td>
-                <td>{{ row.exchangeRate }}</td>
+                <td>{{ row.exchangeRate * 1}}</td>
             </tr>
         {% endfor %}
         </tbody>
