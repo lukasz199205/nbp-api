@@ -21,12 +21,15 @@ class MainController extends AbstractController
         $rates = $client->fetchCurrenciesFromNBP();
         // aktualizacja danych w bazie
         $update->update($rates);
+        // pobranie informacji o dacie aktualizacji tabeli kursów
+        $effectiveDate = $rates[0]['effectiveDate'];
         //pobranie danych z bazy do wyświetlenia
         $data = $em->getRepository(Currency::class)
             ->findBy([],['name' => 'ASC']);
 
         return $this->render('main/index.html.twig', [
             'data' => $data,
+            'effectiveDate' => $effectiveDate
         ]);
     }
 }
