@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kursy walut{% endblock %}
+
+{% block body %}
+
+    <div style="margin: auto;
+  width: 30%;
+  text-align: center;">
+
+    <h3>Stan kursów akutalny na dzień: {{ date('now')|date('d/m/Y')}} </h3>
+    <h6 style="color: red">Aby zaaktualizować dane odśwież stronę</h6>
+
+    <table style="text-align: center; vertical-align: center;">
+        <thead>
+        <tr>
+            <th>Nazwa waluty</th>
+            <th>Kod</th>
+            <th>Kurs</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.currencyCode }}</td>
+                <td>{{ row.exchangeRate }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
