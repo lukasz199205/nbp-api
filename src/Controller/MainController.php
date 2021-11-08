@@ -17,9 +17,10 @@ class MainController extends AbstractController
     public function index(NBPApiClient $client, CurrencyUpdate $update): Response
     {
         $em = $this->getDoctrine()->getManager();
+        // pobranie danych z API NBP
         $rates = $client->fetchCurrenciesFromNBP();
+        // aktualizacja danych w bazie
         $update->update($rates);
-
         //pobranie danych z bazy do wyświetlenia
         $data = $em->getRepository(Currency::class)
             ->findBy([],['name' => 'ASC']);
