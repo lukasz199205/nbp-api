@@ -22,7 +22,7 @@ class MainController extends AbstractController
 
         //pobranie danych z bazy do wyświetlenia
         $data = $em->getRepository(Currency::class)
-            ->findAll();
+            ->findBy([],['name' => 'ASC']);
 
         return $this->render('main/index.html.twig', [
             'data' => $data,
