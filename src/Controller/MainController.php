@@ -3,25 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Currency;
+use App\Service\NBPApiClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/", name="main")
      */
-    public function index(HttpClientInterface $client): Response
+    public function index(NBPApiClient $client): Response
     {
-
         $em = $this->getDoctrine()->getManager();
 
-        // pobranie danych z API NBP
-        $response = $client->request('GET', 'http://api.nbp.pl/api/exchangerates/tables/A?format=json/');
-        $rates = $response->getContent();
-        $rates = $response->toArray();
+        $rates = $client->fetchCurrenciesFromNBP();
 
         //iteracja po pobranych danych
         foreach ($rates[0]['rates'] as $rate) {
