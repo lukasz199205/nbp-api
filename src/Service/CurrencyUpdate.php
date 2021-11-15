@@ -15,6 +15,7 @@ class CurrencyUpdate
         $this->em = $em;
     }
 
+    //TODO podzielić funkcje na update i create oraz dodatkowo pozbyć się z pętli zapytania do bazy
     public function update(array $rates) :void
     {
         foreach ($rates[0]['rates'] as $rate) {
