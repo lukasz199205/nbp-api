@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\Currency;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CurrencyUpdate
+class CurrencyManager
 {
 
     private EntityManagerInterface $em;
@@ -18,7 +18,7 @@ class CurrencyUpdate
     //TODO podzielić funkcje na update i create oraz dodatkowo pozbyć się z pętli zapytania do bazy
     public function update(array $rates) :void
     {
-        foreach ($rates[0]['rates'] as $rate) {
+        foreach ($rates as $rate) {
 
             // pobranie aktualnych danych z bazy dla konkretnej waluty
             $currency = $this->em->getRepository(Currency::class)

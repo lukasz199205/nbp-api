@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\CurrencyUpdate;
+use App\Service\CurrencyManager;
 use App\Service\NBPApiClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,12 +13,12 @@ class UpdateCurrenciesCommand extends Command
 {
     protected static $defaultName = 'app:update-currencies';
     protected static $defaultDescription = 'Fetches data from NBP API and updates currencies data in database';
-    private CurrencyUpdate $updateCurrency;
+    private CurrencyManager $currencyManager;
     private NBPApiClient $client;
 
-    public function __construct(CurrencyUpdate $updateCurrency, NBPApiClient $client, string $name = null)
+    public function __construct(CurrencyManager $currencyManager, NBPApiClient $client, string $name = null)
     {
-        $this->updateCurrency = $updateCurrency;
+        $this->currencyManager = $currencyManager;
         $this->client = $client;
         parent::__construct($name);
     }
@@ -28,7 +28,7 @@ class UpdateCurrenciesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $rates = $this->client->fetchCurrenciesFromNBP();
-        $this->updateCurrency->update($rates);
+        $this->currencyManager->update($rates);
 
         $io->success('Kursy walut zostały zaktualizowane');
 

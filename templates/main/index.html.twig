@@ -8,7 +8,6 @@
   width: 30%;
   text-align: center;">
 
-    <h3>Stan kursów akutalny na dzień: {{ effectiveDate }} </h3>
     <h6 style="color: red">Aby zaaktualizować dane odśwież stronę</h6>
 
     <table style="text-align: center; vertical-align: center;">
@@ -20,11 +19,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for row in data %}
+        {% for currency in currencies %}
             <tr>
-                <td>{{ row.name }}</td>
-                <td>{{ row.currencyCode }}</td>
-                <td>{{ row.exchangeRate * 1}}</td>
+                <td>{{ currency.name }}</td>
+                <td>{{ currency.currencyCode }}</td>
+                <td>{{ currency.exchangeRate * 1}}</td>
             </tr>
         {% endfor %}
         </tbody>

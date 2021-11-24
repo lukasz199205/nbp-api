@@ -8,12 +8,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class NBPApiClient
 {
     private HttpClientInterface $httpClient;
-    private ContainerBagInterface $bag;
+    private ContainerBagInterface $params;
 
 
-    public function __construct(HttpClientInterface $httpClient, ContainerBagInterface $bag)
+    public function __construct(HttpClientInterface $httpClient, ContainerBagInterface $params)
     {
-        $this->bag = $bag;
+        $this->params = $params;
         $this->httpClient = $httpClient;
     }
 
@@ -21,10 +21,11 @@ class NBPApiClient
     {
         // pobranie aktualnych danych z API NBP z tabeli A
 
-        $response = $this->httpClient->request('GET', $this->bag->get('app.nbp_api_table_a'));
+
+        $response = $this->httpClient->request('GET', $this->params->get('app.nbp_api_table_a'));
         $rates = $response->getContent();
         $rates = $response->toArray();
 
-        return $rates;
+        return $rates[0]['rates'];
     }
 }
