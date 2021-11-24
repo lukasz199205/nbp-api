@@ -28,7 +28,7 @@ class UpdateCurrenciesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $rates = $this->client->fetchCurrenciesFromNBP();
-        $this->currencyManager->update($rates);
+        $this->currencyManager->checkForCurrencyUpdate($rates);
 
         $io->success('Kursy walut zostały zaktualizowane');
 

@@ -16,14 +16,10 @@ class MainController extends AbstractController
      */
     public function index(NBPApiClient $client, CurrencyManager $currencyManager): Response
     {
-        $em = $this->getDoctrine()->getManager();
         // pobranie danych z API NBP
         $rates = $client->fetchCurrenciesFromNBP();
         // aktualizacja danych w bazie
-        $currencyManager->update($rates);
-        //pobranie danych z bazy do wyświetlenia
-        $currencies = $em->getRepository(Currency::class)
-            ->findBy([],['name' => 'ASC']);
+        $currencies = $currencyManager->checkForCurrencyUpdate($rates);
 
         return $this->render('main/index.html.twig', [
             'currencies' => $currencies,
