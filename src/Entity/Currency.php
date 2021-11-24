@@ -39,6 +39,16 @@ class Currency
         $this->id = Uuid::v4();
     }
 
+    public function __isset($prop) : bool
+    {
+        return isset($this->$prop);
+    }
+
+    public function __get($prop)
+    {
+        return $this->$prop;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
