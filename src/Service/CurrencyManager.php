@@ -33,7 +33,6 @@ class CurrencyManager
             }
         }
         $this->em->flush();
-        dump($currencies);
         return $currencies;
     }
 
